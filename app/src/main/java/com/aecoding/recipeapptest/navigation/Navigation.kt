@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.aecoding.recipeapptest.screen.AddScreen
 import com.aecoding.recipeapptest.screen.CategoryScreen
+import com.aecoding.recipeapptest.screen.CustomSplashScreen
 import com.aecoding.recipeapptest.screen.FavoritesScreen
 import com.aecoding.recipeapptest.screen.HomeScreen
 import com.aecoding.recipeapptest.viewmodel.MainViewModel
@@ -32,7 +33,6 @@ fun Navigation(
         composable(Screen.LikedScreen.route) { FavoritesScreen(viewState) }
         composable(Screen.CategoryScreen.route) { CategoryScreen() }
         composable(Screen.AddScreen.route) { AddScreen() }
-
     }
 
 }

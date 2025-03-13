@@ -12,6 +12,7 @@ class MainViewModel : ViewModel() {
 
     private val _mealState = mutableStateOf(MealState())
     val mealState: State<MealState> = _mealState
+    val keepSplashScreen = mutableStateOf(true)
 
     init {
         fetchMeals()
@@ -32,8 +33,10 @@ class MainViewModel : ViewModel() {
                     error = "Error fetching categories ${e.message}"
                 )
             }
+            keepSplashScreen.value = false
         }
     }
+
 
     data class MealState(
         val loading: Boolean = true,

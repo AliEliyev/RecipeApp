@@ -31,48 +31,51 @@ import com.aecoding.recipeapptest.viewmodel.MainViewModel
 
 @Composable
 fun MainView() {
-
     val mealViewModel: MainViewModel = viewModel()
     val controller: NavController = rememberNavController()
     val navBackStackEntry by controller.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    if (mealViewModel.keepSplashScreen.value) {
+        CustomSplashScreen()
+    } else {
 
-    val bottomBar: @Composable () -> Unit = {
-        BottomNavigation(
-            modifier = Modifier.height(100.dp),
-            backgroundColor = bottomSheetBg,
-            contentColor = contentColorFor(bottomSheetBg)
-        ) {
-            screensInBottom.forEach { item ->
-                BottomNavigationItem(
-                    modifier = Modifier.padding(20.dp),
-                    selected = currentRoute == item.route,
-                    onClick = { controller.navigate(item.route) },
-                    icon = {
-                        Icon(
-                            painter = painterResource(item.icon),
-                            contentDescription = item.title,
-                            tint = if (currentRoute == item.route) Color.Black
-                            else Color.Gray,
-                            modifier = Modifier
-                                .background(
-                                    color = if (currentRoute == item.route) bottomSelected
-                                    else bottomSheetBg,
-                                    shape = RoundedCornerShape(70.dp)
-                                )
-                                .size(70.dp)
-                                .padding(16.dp)
-                        )
+        val bottomBar: @Composable () -> Unit = {
+            BottomNavigation(
+                modifier = Modifier.height(100.dp),
+                backgroundColor = bottomSheetBg,
+                contentColor = contentColorFor(bottomSheetBg)
+            ) {
+                screensInBottom.forEach { item ->
+                    BottomNavigationItem(
+                        modifier = Modifier.padding(20.dp),
+                        selected = currentRoute == item.route,
+                        onClick = { controller.navigate(item.route) },
+                        icon = {
+                            Icon(
+                                painter = painterResource(item.icon),
+                                contentDescription = item.title,
+                                tint = if (currentRoute == item.route) Color.Black
+                                else Color.Gray,
+                                modifier = Modifier
+                                    .background(
+                                        color = if (currentRoute == item.route) bottomSelected
+                                        else bottomSheetBg,
+                                        shape = RoundedCornerShape(70.dp)
+                                    )
+                                    .size(70.dp)
+                                    .padding(16.dp)
+                            )
 
-                    },
-                    selectedContentColor = bottomSelected,
-                )
+                        },
+                        selectedContentColor = bottomSelected,
+                    )
+                }
             }
         }
-    }
 
-    Scaffold(bottomBar = bottomBar) {
-        Navigation(mealViewModel, controller, it)
+        Scaffold(bottomBar = bottomBar) {
+            Navigation(mealViewModel, controller, it)
+        }
     }
 }
